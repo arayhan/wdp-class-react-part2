@@ -1,5 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Text({ text }) {
-  return <h1>{text}</h1>;
+	return <h1>{text}</h1>;
 }

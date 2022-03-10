@@ -1,43 +1,39 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Text from "../components/Text";
 
-export default class SecondPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      angka: 0,
-    };
-  }
+const SecondPage = () => {
+	const [angka, setAngka] = useState(0);
+	const [showText, setShowText] = useState(true);
 
-  addAngka = () => {
-    this.setState({ angka: this.state.angka + 1 });
-  };
+	const addAngka = () => {
+		setAngka(angka + 1);
+	};
 
-  removeAngka = () => {
-    this.setState({ angka: this.state.angka - 1 });
-  };
+	const removeAngka = () => {
+		setAngka(angka - 1);
+	};
 
-  componentDidMount() {
-    console.log("Data masuk dari API - Dilakukan setState");
-  }
+	useEffect(() => {
+		console.log("componentDidMount");
+	}, []);
 
-  componentDidUpdate() {
-    console.log("Data kita rubah atau interaksi API - Dilakukan setState");
-  }
+	useEffect(() => {
+		console.log("componentDidUpdate - angka");
+	}, [angka]);
 
-  componentWillUnmount() {
-    console.log("Kita pindah page - Kita melakakuan interaksi API");
-  }
+	useEffect(() => {
+		console.log("componentDidUpdate - showText");
+	}, [showText]);
 
-  render() {
-    console.log("First Render");
+	return (
+		<div>
+			{showText && <Text text={angka} />}
+			<button onClick={addAngka}>+</button>
+			<button onClick={removeAngka}>-</button>
 
-    return (
-      <div>
-        <Text text={this.state.angka} />
-        <button onClick={this.addAngka}>+</button>
-        <button onClick={this.removeAngka}>-</button>
-      </div>
-    );
-  }
-}
+			<button onClick={() => setShowText(!showText)}>Show Text</button>
+		</div>
+	);
+};
+
+export default SecondPage;
